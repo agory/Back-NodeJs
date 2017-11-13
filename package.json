@@ -4,7 +4,7 @@
   "description": "Backend of codev project",
   "main": "app.js",
   "scripts": {
-    "start":"nodemon app.js",
+    "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -25,7 +25,8 @@
   },
   "homepage": "https://github.com/Polytech-Codev/Back-NodeJs#readme",
   "dependencies": {
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "mongoose": "^4.13.2"
   },
   "devDependencies": {
     "nodemon": "^1.12.1"
