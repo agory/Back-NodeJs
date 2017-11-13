@@ -1,0 +1,33 @@
+{
+  "name": "back-nodejs",
+  "version": "1.0.0",
+  "description": "Backend of codev project",
+  "main": "app.js",
+  "scripts": {
+    "start":"nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Polytech-Codev/Back-NodeJs.git"
+  },
+  "keywords": [
+    "Nodejs",
+    "Ionic",
+    "Google",
+    "Book",
+    "API"
+  ],
+  "author": "DIAB Nicolas GORY Alexandre",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Polytech-Codev/Back-NodeJs/issues"
+  },
+  "homepage": "https://github.com/Polytech-Codev/Back-NodeJs#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.1"
+  }
+}
