@@ -6,22 +6,35 @@ let mongoose = require('mongoose');
 let config = require('./config');
 
 let port = process.env.PORT || 3000;
-
+mongoose.Promise = Promise;
 mongoose.connect(config.database, {
     useMongoClient: true
-});
-app.set('JWTSecret', config.secret);
+})
+    .then(() => console.log('connection to database successful'))
+    .catch((err) => console.error(err));
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(morgan('dev'));
 
-let users = require('./src/route/user');
-let books = require('./src/route/book');
+let route = require('./src/route/route');
 app.listen(port);
-
-app.use('/users', users);
-app.use('/books', books);
 console.log('RESTful API server started on: ' + port);
+
+app.use('/', route);
+
+
+// catch 404 and forward to error handler
+app.use(function (req, res, next) {
+    let err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+});
+
+// error handler
+app.use(function (err, req, res) {
+    res.status(err.status || 500);
+    res.json(req.app.get('env') === 'development' ? err : err.message);
+});
 
 module.exports = app;

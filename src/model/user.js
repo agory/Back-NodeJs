@@ -9,7 +9,8 @@ var UserSchema = new Schema({
     },
     email: {
         type: String,
-        required: true
+        required: true,
+        unique: "the email must be unique"
     },
     password: {
         type: String,
