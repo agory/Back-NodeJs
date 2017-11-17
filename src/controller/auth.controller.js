@@ -71,7 +71,7 @@ module.exports = {
     middlewareVerifyToken: async function (req, res, next) {
         let token = req.body.token || req.query.token || req.headers['manga-drein-access-token'];
         if (!token) {
-            return res.status(403).send({
+            return res.status(401).send({
                 success: false,
                 message: 'No token provided.'
             });
@@ -81,7 +81,7 @@ module.exports = {
             req.user = await User.findOne({_id: decoded.id});
             next();
         } catch (err) {
-            return res.status(403).json({success: false, message: 'Failed to authenticate token.'});
+            return res.status(401).json({success: false, message: 'Failed to authenticate token.'});
         }
     }
 };
