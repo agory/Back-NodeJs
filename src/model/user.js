@@ -5,12 +5,17 @@ var Schema = mongoose.Schema;
 var UserSchema = new Schema({
     name: {
         type: String,
-        required: 'Kindly enter the name of the user'
+        required: true
     },
-    Created_date: {
-        type: Date,
-        default: Date.now
-    }
+    email: {
+        type: String,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
+
 });
 
 module.exports = mongoose.model('Users', UserSchema);
