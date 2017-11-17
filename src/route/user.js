@@ -1,10 +1,7 @@
 let router = require('express').Router();
+let userController = require('../controller/user.controller');
 
-router.use(function timeLog(req, res, next) {
-    console.log('User request');
-    next();
-});
-
-router.get('/', );
+router.get('/', userController.getAllUser);
+router.get('/profile', userController.profile);
 
 module.exports = router;
