@@ -1,16 +1,15 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+let express = require('express');
+let router = express.Router();
 
-
-var UserSchema = new Schema({
-    name: {
-        type: String,
-        required: 'Kindly enter the name of the user'
-    },
-    Created_date: {
-        type: Date,
-        default: Date.now
-    }
+router.use(function timeLog(req, res, next) {
+    console.log('User request');
+    next();
 });
 
-module.exports = mongoose.model('Users', UserSchema);
+router.get('/', function(req, res) {
+//https://www.googleapis.com/books/v1/volumes?q=978-2-7234-8852-5
+    console.log();
+    res.send('Birds home page hhhhh');
+});
+
+module.exports = router;

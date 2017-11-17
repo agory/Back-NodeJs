@@ -1,13 +1,16 @@
-let express = require('express');
-let router = express.Router();
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
-router.use(function timeLog(req, res, next) {
-    console.log('User request');
-    next();
+
+var UserSchema = new Schema({
+    name: {
+        type: String,
+        required: 'Kindly enter the name of the user'
+    },
+    Created_date: {
+        type: Date,
+        default: Date.now
+    }
 });
 
-router.get('/', function(req, res) {
-    res.send('Birds home page');
-});
-
-module.exports = router;
+module.exports = mongoose.model('Users', UserSchema);
