@@ -1,7 +1,7 @@
 let router = require('express').Router();
 let authController = require('../controller/auth.controller');
 let auth = require('./auth');
-let book = require('./book');
+let book = require('./manga');
 let user = require('./user');
 let moment = require('moment');
 
