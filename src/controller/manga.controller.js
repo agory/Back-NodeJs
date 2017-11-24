@@ -30,7 +30,7 @@ let MangaController = {
 
         let response = mangaApi.getMangaByIsbn(req, res, next);
 
-        if (response.ok) {
+        if (res.ok) {
             res.status(200);
             res.json(response.body);
         } else {

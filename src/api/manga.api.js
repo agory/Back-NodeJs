@@ -10,8 +10,12 @@ let apiCall = {
             .end(response => {
                 if (response.ok) {
                     console.log("Got a response: ", response.body);
+                    res.status(200);
+                    res.json(response.body);
                 } else {
                     console.log("Got an error: ", response.error);
+                    res.status(404);
+                    res.json({error: 'no manga with such isbn'})
                 }
                 return response;
             });
