@@ -1,19 +1,21 @@
-var unirest = require('unirest');
+let unirest = require('unirest');
 
-let url = '//https://www.googleapis.com/books/v1/volumes?q=';
+let googleUrl = '//https://www.googleapis.com/books/v1/volumes?q=';
 
 let apiCall = {
-
     getMangaByIsbn: function (req, res, next) {
-        unirest.get(url)
+        let isbn = req.params.isbn;
+        unirest.get(googleUrl + isbn)
             .send()
             .end(response => {
                 if (response.ok) {
-                    console.log("Got a response: ", response.body)
+                    console.log("Got a response: ", response.body);
                 } else {
-                    console.log("Got an error: ", response.error)
+                    console.log("Got an error: ", response.error);
                 }
+                return response;
             });
     },
-}
+};
+
 module.exports = apiCall;

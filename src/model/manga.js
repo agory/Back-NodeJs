@@ -10,7 +10,7 @@ var MangaSchema = new Schema({
     isbn: {
         type: String,
         required: true,
-        unique: "the email must be unique"
+        unique: "the isbn must be unique"
     },
 
 });

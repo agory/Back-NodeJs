@@ -1,6 +1,6 @@
 let Manga = require('../model/manga');
 let app = require('../../app');
-
+let mangaApi = require('../api/manga.api');
 
 let daotodto = (manga) => {
     return {
@@ -28,12 +28,15 @@ let MangaController = {
     getMangaByIsbnApiCall: function(req, res, next) {
         let mangaIsbn = req.params.isbn;
 
-            if (user) {
-                res.json(dao2dto(user));
-            } else {
-                res.status(404);
-                res.json({error: 'no user with such id'})
-            }
+        let response = mangaApi.getMangaByIsbn(req, res, next);
+
+        if (response.ok) {
+            res.status(200);
+            res.json(response.body);
+        } else {
+            res.status(404);
+            res.json({error: 'no manga with such isbn : ' + mangaIsbn})
+        }
     },
 
 };
