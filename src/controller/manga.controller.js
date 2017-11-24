@@ -1,6 +1,7 @@
 let Manga = require('../model/manga');
 let app = require('../../app');
 let mangaApi = require('../api/manga.api');
+let palmerabollo = require('node-isbn');
 
 let daotodto = (manga) => {
     return {
@@ -28,17 +29,16 @@ let MangaController = {
     getMangaByIsbnApiCall: function(req, res, next) {
         let mangaIsbn = req.params.isbn;
 
-        let response = mangaApi.getMangaByIsbn(req, res, next);
-
-        if (res.ok) {
-            res.status(200);
-            res.json(response.body);
-        } else {
-            res.status(404);
-            res.json({error: 'no manga with such isbn : ' + mangaIsbn})
-        }
+        mangaApi.getMangaByIsbn(mangaIsbn, (err, body) => {
+            if (err) {
+                res.status(404);
+                return res.json({error: 'no manga with such isbn : ' + mangaIsbn, err:e});
+            } else {
+                res.status(200);
+                return res.json(body);
+            }
+        });
     },
-
 };
 
 module.exports = MangaController;
