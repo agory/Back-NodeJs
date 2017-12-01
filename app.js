@@ -3,7 +3,18 @@ let app = express();
 let morgan = require('morgan');
 let bodyParser = require('body-parser');
 let mongoose = require('mongoose');
-let config = require('./config');
+
+/**
+ * Select config
+ */
+let config;
+const env = app.get('env').trim();
+console.log("Mode : " + env);
+if (env === "production"){
+    config = require('./config.prod');
+} else {
+    config = require('./config.dev');
+}
 
 let port = process.env.PORT || 3000;
 mongoose.Promise = Promise;

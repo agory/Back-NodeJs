@@ -1,15 +1,12 @@
 version: '3'
 services:
   web:
-    image: agory/cloud
+    image: agory/codev
     depends_on:
       - mongo
-    environment:
-      - DATABASE_URL=totov
     ports:
       - "3000:3000"
-    volumes:
-      - ./:/usr/src/app
+
 
   mongo:
     image: mongo
