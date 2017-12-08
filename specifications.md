@@ -2,12 +2,12 @@
 
 ##Contexte
 Imaginez que vous parcourez les bibliothèques de la Fnac, 
-à la recherche du Manga que vous recherchez frénétiquement.
+à la recherche d'un manga que vous recherchez frénétiquement.
 
 Vous avez votre smartphone en main et vous lancez l'application 
 Manga-Drein.
 
-Vous approchez votre smartphone du manga afin de scanner le code
+Vous approchez fébrilement votre smartphone du manga afin de scanner le code
 barre.
  
 Toutes les informations du manga s'affichent alors dans l'application.
@@ -28,7 +28,7 @@ Google qui recense les manga vendus dans le monde.
 ## Cas d'utilisation
 Lors de la première utilisation, l’utilisateur devra se créer un
 compte. Ce compte peut être uniquement lié à l’application ou 
-bien il peut s’agir d’une authentification OAuth 2.0.
+bien il peut s’agir d’une authentification OAuth 2.0
 
 Un utilisateur scanne les codes-barres des mangas qu’il veut lire
 
@@ -43,16 +43,45 @@ L'utilisateur peut télécharger et lire les scans du manga
 
 ## Cahier des charges
 ### Objectifs
+- Application mobile Android native ou hybride (Ionic, React Native)
+- Utilisation de la caméra pour scanner des codes-barres (API Google)
+- Compte utilisateur
+  - Compte propre à l’application et/ou
+  - Compte issu d’une authentification OAuth 2.0 (Microsoft, 
+  Google, Facebook, Twitter)
+- Historisation en ligne des dernières recherches
 
 ### Bonus
+- Peut lire les scans en ligne (Nouvelle API - comme amazon preview)
+- Peut fonctionner en local (consultation de manga déjà vus 
+hors connexion) base de données SQLite avec Room par exemple
+- Logo et nom pour l'application réfléchis et stylés
+- Application multilingue (français/anglais/espagnol)
+- Toute autre killer feature
   
 ## Solution technique
-### Front
+### Gestion de projet
+- Gestion de suivi du projet Trello (gratuit)
+- Gestion de versions Git avec GitHub
 
 ### Back
+- NodeJS (Express) - Rapide, efficace très bonne comptabilité
+avec le JSON (API Google) grâce à JavaScript, il convient
+parfaitement au projet
+
+### Front
+- Ionic - Solution hybride qui fonctionne sur tous les mobiles
+ou sur le web. Basé sur du JavaScript (Angular) qui permet 
+d'avoir une continuité avec le JavaScript de NodeJS
 
 ### API Google books
+Informations et accès à l'API Google Books
+https://developers.google.com/books/
+
+Exemple d'appel (One Piece T1) https://www.googleapis.com/books/v1/volumes?q=978-2-7234-8852-5
+
+Utilisable jusqu'à 100k/jour ; ce qui est suffisant pour un projet étudiant
 
 ##Liens utiles
-- notre git
-- notre Trello
+- notre git : https://github.com/Polytech-Codev/
+- notre Trello : https://trello.com/b/79Ll2Puh/manga-drein
