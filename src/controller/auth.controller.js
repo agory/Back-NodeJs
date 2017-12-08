@@ -1,7 +1,7 @@
 let User = require('../model/user');
 let jwt = require('jsonwebtoken');
 let bcrypt = require('bcryptjs');
-let config = require('../../config');
+let config = require('../../config.dev');
 
 
 let buildToken = user => {

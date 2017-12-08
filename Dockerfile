@@ -12,4 +12,9 @@ RUN npm install
 # Run the container under "node" user by default
 USER node
 
-CMD [ "node", "app.js" ]
+# Set env variable
+ENV NODE_ENV production
+
+EXPOSE 3000
+
+CMD ["node", "bin/www" ]
