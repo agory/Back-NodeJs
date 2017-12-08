@@ -10,7 +10,7 @@ let MangaController = {
         mangaApi.getMangaByIsbn(mangaIsbn, (err, body) => {
             if (err) {
                 res.status(404);
-                return res.json({error: 'no manga with such isbn : ' + mangaIsbn, err:e});
+                return res.json({err});
             } else {
                 res.status(200);
                 return res.json(transformMangaFromGoogleApi(body));
