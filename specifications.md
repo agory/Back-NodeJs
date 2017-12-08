@@ -1,6 +1,6 @@
-#Manga-Drein
+# Manga-Drein
 
-##Contexte
+## Contexte
 Imaginez que vous parcourez les bibliothèques de la Fnac, 
 à la recherche d'un manga que vous recherchez frénétiquement.
 
@@ -82,6 +82,6 @@ Exemple d'appel (One Piece T1) https://www.googleapis.com/books/v1/volumes?q=978
 
 Utilisable jusqu'à 100k/jour ; ce qui est suffisant pour un projet étudiant
 
-##Liens utiles
+## Liens utiles
 - notre git : https://github.com/Polytech-Codev/
 - notre Trello : https://trello.com/b/79Ll2Puh/manga-drein
