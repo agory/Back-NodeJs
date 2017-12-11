@@ -1,19 +1,19 @@
 # Manga-Drein
 
 ## Contexte
-Imaginez que vous parcourez les bibliothèques de la Fnac, 
-à la recherche d'un manga que vous recherchez frénétiquement.
+Imaginez que vous parcourez frénétiquement les bibliothèques de la Fnac, 
+à la recherche d'un manga.
 
-Vous avez votre smartphone en main et vous lancez l'application 
+Vous avez votre smartphone en main et vous lancez notre application 
 Manga-Drein.
 
 Vous approchez fébrilement votre smartphone du manga afin de scanner le code
-barre.
+barre au dos du tome.
  
 Toutes les informations du manga s'affichent alors dans l'application.
 Et si vous cliquez sur le gros bouton, vous pouvez télécharger
 les scans du manga.
- 
+
 Vous répétez cette opération pour chaque manga de votre choix et 
 vous rentrez chez vous afin de lire vos trouvailles 
 tranquillement dans votre lit.
