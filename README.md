@@ -1,5 +1,9 @@
 # Manga-Drein
 
+## Get Started
+
+Go to our wiki [Get Started](./Get-started) 
+
 ## Contexte
 Imaginez que vous parcourez frénétiquement les bibliothèques de la Fnac, 
 à la recherche d'un manga.
