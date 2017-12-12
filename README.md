@@ -2,7 +2,7 @@
 
 ## Get Started
 
-Go to our wiki [Get Started](./wiki/Get-started) 
+Go to our wiki [Get Started](https://github.com/Polytech-Codev/Back-NodeJs/wiki/Get-started) 
 
 ## Contexte
 Imaginez que vous parcourez frénétiquement les bibliothèques de la Fnac, 
