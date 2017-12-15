@@ -21,25 +21,33 @@ let MangaController = {
 
 let transformMangaFromGoogleApi = (googleApiBody) => {
 
-    let isbn13 = googleApiBody.items[0].volumeInfo.industryIdentifiers[0].identifier;
-    let isbn10 = googleApiBody.items[0].volumeInfo.industryIdentifiers[1].identifier;
+    let volumeInfo = googleApiBody.items[0].volumeInfo;
+    let saleInfo = googleApiBody.items[0].saleInfo;
+    let isbn;
+
+    if (volumeInfo) {
+        let isbn13 = volumeInfo.industryIdentifiers[0] ? volumeInfo.industryIdentifiers[0].identifier : "unknown";
+        let isbn10 = volumeInfo.industryIdentifiers[1] ? volumeInfo.industryIdentifiers[1].identifier : "unknown";
+
+        isbn = isbn13 ? isbn13 : isbn10;
+    }
 
     return {
-        isbn: isbn13 ? isbn13 : isbn10,
+        isbn: isbn,
         retailPrice: {
-            amount: googleApiBody.items[0].saleInfo.retailPrice.amount,
-            currencyCode: googleApiBody.items[0].saleInfo.retailPrice.currencyCode,
+            amount: saleInfo.retailPrice ? saleInfo.retailPrice.amount : "",
+            currencyCode: saleInfo.retailPrice ? saleInfo.retailPrice.currencyCode : "",
         },
-        pgaCount: googleApiBody.items[0].volumeInfo.pageCount,
-        title: googleApiBody.items[0].volumeInfo.title,
-        subtitle: googleApiBody.items[0].volumeInfo.subtitle,
-        authors: googleApiBody.items[0].volumeInfo.authors,
-        publisher: googleApiBody.items[0].volumeInfo.publisher,
-        publishedDate: googleApiBody.items[0].volumeInfo.publishedDate,
-        description: googleApiBody.items[0].volumeInfo.description,
+        pgaCount: volumeInfo ? volumeInfo.pageCount : "",
+        title: volumeInfo ? volumeInfo.title : "",
+        subtitle: volumeInfo ? volumeInfo.subtitle : "",
+        authors: volumeInfo ? volumeInfo.authors : "",
+        publisher: volumeInfo ? volumeInfo.publisher : "",
+        publishedDate: volumeInfo ? volumeInfo.publishedDate : "",
+        description: volumeInfo ? volumeInfo.description : "",
         imageLinks: {
-            smallThumbnail: googleApiBody.items[0].volumeInfo.imageLinks.smallThumbnail,
-            thumbnail: googleApiBody.items[0].volumeInfo.imageLinks.thumbnail,
+            smallThumbnail: volumeInfo.imageLinks ? volumeInfo.imageLinks.smallThumbnail : "",
+            thumbnail: volumeInfo.imageLinks ? volumeInfo.imageLinks.thumbnail : "",
         },
     }
 };
