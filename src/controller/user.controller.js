@@ -1,22 +1,25 @@
 let User = require('../model/user');
 let jwt = require('jsonwebtoken');
 let app = require('../../app');
+let mangaController = require('../controller/manga.controller');
 
 let daotodto = (user) => {
     return {
         id: user._id,
         name: user.name,
         email: user.email,
+        history: user.history
     }
-}
+};
 
 let dtotodao = (user) => {
     return {
         _id: user.id,
         name: user.name,
         email: user.email,
+        history: user.history
     }
-}
+};
 
 
 

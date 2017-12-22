@@ -13,7 +13,7 @@ router.get('/',(req,res) => res.json({
     message: 'Welcome to manga drein API'
 }));
 router.use('/auth',auth);
-//router.use('/',authController.middlewareVerifyToken);
+router.use('/',authController.middlewareVerifyToken);
 router.use('/users',user);
 router.use('/manga',manga);
 

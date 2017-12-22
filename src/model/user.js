@@ -29,5 +29,5 @@ let UserSchema = new Schema({
 
 });
 
-module.exports = mongoose.model('History', historySchema);
+module.exports = mongoose.model('History', HistorySchema);
 module.exports = mongoose.model('Users', UserSchema);

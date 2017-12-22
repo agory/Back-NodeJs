@@ -8,6 +8,10 @@ let MangaController = {
         let mangaIsbn = req.params.isbn;
 
         mangaApi.getMangaByIsbn(mangaIsbn, (err, body) => {
+            // save request to base
+
+
+            // exec request
             if (err) {
                 res.status(404);
                 return res.json({err});
