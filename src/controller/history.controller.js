@@ -1,6 +1,5 @@
 let User = require('../model/user');
 let History = require('../model/history');
-let History = require('../model/history');
 let jwt = require('jsonwebtoken');
 
 let HistoryController = {
@@ -20,9 +19,6 @@ let HistoryController = {
         } catch (err) {
             return res.status(500).json({succes: false, message: "Something went wrong.", error: err});
         }
-    },
-    addHistoryToUser: function () {
-
     },
 };
 

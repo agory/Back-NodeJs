@@ -1,6 +1,7 @@
 let app = require('../../app');
 let mangaApi = require('../api/manga.api');
-//let palmerabollo = require('node-isbn');
+let User = require('../model/user');
+let History = require('../model/history');
 
 
 let MangaController = {
@@ -8,14 +9,52 @@ let MangaController = {
         let mangaIsbn = req.params.isbn;
 
         mangaApi.getMangaByIsbn(mangaIsbn, (err, body) => {
-            // save request to base
-
-
             // exec request
             if (err) {
                 res.status(404);
                 return res.json({err});
             } else {
+                // save request to base
+                let user = req.user;
+
+                console.log(user);
+
+
+
+                let history = new History({
+                    isbn: mangaIsbn,
+                    date: Date.now(),
+                    user: user._id
+                });
+
+                console.log(user);
+
+                console.log(history);
+
+                history.save(function (err) {
+                    if (err) return handleError(err);
+                    // thats it!
+                });
+/*
+                user.history = user.history.add(newHistory);
+
+
+                User.findByIdAndUpdate(user._id, {$set: user}, (err, updatedUser) => {
+                    if (err) {
+                        return res.status(510).json(err.message);
+                       // return res.status(500).json(err.message);
+                    }
+                    if (!updatedUser) {
+                        return res.status(511).json();
+                        //return res.status(404).json();
+                    }
+                    return res.status(512).json();
+                });
+
+                User.update();
+                user.add (isbn);
+*/
+                // response
                 res.status(200);
                 return res.json(transformMangaFromGoogleApi(body));
             }
