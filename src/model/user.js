@@ -1,8 +1,7 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-
-var UserSchema = new Schema({
+let UserSchema = new Schema({
     name: {
         type: String,
         required: true
@@ -16,6 +15,13 @@ var UserSchema = new Schema({
         type: String,
         required: true
     },
+    history: [{
+        isbn: {
+            type: String,
+            required: true
+        },
+        date: Date,
+    }],
 
 });
 

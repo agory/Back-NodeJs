@@ -1,6 +1,6 @@
 let unirest = require('unirest');
 
-let googleUrl = 'https://www.googleapis.com/books/v1/volumes?q=';
+let googleUrl = 'https://www.googleapis.com/books/v1/volumes?q=isbn:';
 
 let apiCall = {
     getMangaByIsbn: function (isbn, callback) {
