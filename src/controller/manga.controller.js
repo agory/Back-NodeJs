@@ -1,7 +1,6 @@
 let app = require('../../app');
 let mangaApi = require('../api/manga.api');
 let User = require('../model/user');
-let History = require('../model/history');
 
 
 let MangaController = {
@@ -14,55 +13,19 @@ let MangaController = {
                 res.status(404);
                 return res.json({err});
             } else {
-                // save request to base
+                // save request to user
                 let user = req.user;
 
-                console.log(user);
-
-
-                user.history.push(new History({
+                user.history.push({
                     isbn: mangaIsbn,
                     date: Date.now(),
-                }));
+                });
 
                 user.save(function (err) {
                     if (err) console.log(err);
                     // thats it!
                 });
-/*
-                console.log(user);
 
-                let history = new History({
-                    isbn: mangaIsbn,
-                    date: Date.now(),
-                    user: user.id
-                });
-
-                console.log(history);
-
-                history.save(function (err) {
-                    if (err) return err;
-                    // thats it!
-                });*/
-/*
-                user.history = user.history.add(newHistory);
-
-
-                User.findByIdAndUpdate(user._id, {$set: user}, (err, updatedUser) => {
-                    if (err) {
-                        return res.status(510).json(err.message);
-                       // return res.status(500).json(err.message);
-                    }
-                    if (!updatedUser) {
-                        return res.status(511).json();
-                        //return res.status(404).json();
-                    }
-                    return res.status(512).json();
-                });
-
-                User.update();
-                user.add (isbn);
-*/
                 // response
                 res.status(200);
                 return res.json(transformMangaFromGoogleApi(body));

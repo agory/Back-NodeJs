@@ -15,7 +15,13 @@ let UserSchema = new Schema({
         type: String,
         required: true
     },
-    history: [{ type: Schema.Types.ObjectId, ref: 'History' }],
+    history: [{
+        isbn: {
+            type: String,
+            required: true
+        },
+        date: Date,
+    }],
 
 });
 
