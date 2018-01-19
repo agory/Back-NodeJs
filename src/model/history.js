@@ -7,8 +7,7 @@ let HistorySchema = new Schema({
             type: String,
             required: true
         },
-        date: Date,
-        user: { type: Schema.Types.ObjectId, ref: 'User' },
+        date: Date
     }
 });
 

@@ -78,7 +78,7 @@ module.exports = {
         }
         try {
             let decoded = await jwt.verify(token, config.secret);
-            req.user = await User.findOne({_id: decoded.id});
+            req.user = await User.findOne({_id: decoded.id}).populate('history');
             next();
         } catch (err) {
             return res.status(401).json({success: false, message: 'Failed to authenticate token.'});

@@ -20,21 +20,30 @@ let MangaController = {
                 console.log(user);
 
 
+                user.history.push(new History({
+                    isbn: mangaIsbn,
+                    date: Date.now(),
+                }));
+
+                user.save(function (err) {
+                    if (err) console.log(err);
+                    // thats it!
+                });
+/*
+                console.log(user);
 
                 let history = new History({
                     isbn: mangaIsbn,
                     date: Date.now(),
-                    user: user._id
+                    user: user.id
                 });
-
-                console.log(user);
 
                 console.log(history);
 
                 history.save(function (err) {
-                    if (err) return handleError(err);
+                    if (err) return err;
                     // thats it!
-                });
+                });*/
 /*
                 user.history = user.history.add(newHistory);
 
