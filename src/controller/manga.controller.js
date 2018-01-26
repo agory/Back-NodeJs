@@ -4,34 +4,51 @@ let User = require('../model/user');
 
 
 let MangaController = {
-    getMangaByIsbnApiCall: function(req, res, next) {
+    getMangaByIsbnApiCall: async function(req, res, next) {
         let mangaIsbn = req.params.isbn;
+        try {
+            const body = await mangaApi.getMangaByIsbn(mangaIsbn)
+            let user = req.user;
 
-        mangaApi.getMangaByIsbn(mangaIsbn, (err, body) => {
-            // exec request
-            if (err) {
-                res.status(404);
-                return res.json({err});
-            } else {
-                // save request to user
-                let user = req.user;
+            user.history.push({
+                isbn: mangaIsbn,
+                date: Date.now(),
+            });
 
-                user.history.push({
-                    isbn: mangaIsbn,
-                    date: Date.now(),
-                });
+            user.save(function (err) {
+                if (err) console.log(err);
+                // thats it!
+            });
 
-                user.save(function (err) {
-                    if (err) console.log(err);
-                    // thats it!
-                });
+            // response
+            res.status(200);
+            return res.json(transformMangaFromGoogleApi(body));
+        } catch (err) {
+            res.status(404);
+            return res.json({err});
+        }
 
-                // response
-                res.status(200);
-                return res.json(transformMangaFromGoogleApi(body));
-            }
-        });
     },
+    getMangaHistory: async function (req, res) {
+
+        const books =  [];
+        const isbnKnow = [];
+        for(const item of req.user.history ){
+            if(!isbnKnow.includes(item.isbn)) {
+                try {
+                    const body = await mangaApi.getMangaByIsbn(item.isbn);
+                    books.push({date:item.date , book : transformMangaFromGoogleApi(body)});
+                    isbnKnow.push(item.isbn);
+                } catch (err) {
+                    console.log(err);
+                }
+            }
+
+        }
+        res.status(200);
+        return res.json(books);
+
+    }
 };
 
 let transformMangaFromGoogleApi = (googleApiBody) => {
