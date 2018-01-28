@@ -1,5 +1,6 @@
 let router = require('express').Router();
-let authController = require('../controller/auth.controller');
+const getCurrentUser =require( "../middleware/user").getCurrentUser,
+    authenticate = require("../middleware/jwt").authenticate;
 let auth = require('./auth');
 let manga = require('./manga');
 let user = require('./user');
@@ -13,7 +14,7 @@ router.get('/',(req,res) => res.json({
     message: 'Welcome to manga drein API'
 }));
 router.use('/auth',auth);
-router.use('/',authController.middlewareVerifyToken);
+router.use('/',authenticate,getCurrentUser);
 router.use('/users',user);
 router.use('/manga',manga);
 
