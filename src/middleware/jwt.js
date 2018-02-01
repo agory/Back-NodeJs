@@ -10,6 +10,11 @@ const createToken = function(auth) {
         });
 };
 
+const parseToken = (token) => {
+    const parts = token.split(' ');
+    return parts[parts.length - 1]
+};
+
 const generateToken = function (req, res, next) {
     req.token = createToken(req.auth);
     next();
@@ -17,7 +22,7 @@ const generateToken = function (req, res, next) {
 
 const sendToken = function (req, res) {
     res.setHeader('x-auth-token', req.token);
-    res.status(200).send(req.auth);
+    res.status(200).send({ id:req.auth.id,'x-auth-token':req.token});
 };
 
 const authenticate = expressJwt({
@@ -25,11 +30,14 @@ const authenticate = expressJwt({
     requestProperty: 'auth',
     getToken: function(req) {
         if (req.headers['x-auth-token']) {
-            return req.headers['x-auth-token'];
+            const token =parseToken(req.headers['x-auth-token']);
+            return token;
         }
         return null;
     }
 });
+
+
 
 module.exports.createToken = createToken;
 module.exports.generateToken = generateToken;

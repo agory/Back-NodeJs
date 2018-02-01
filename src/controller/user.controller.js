@@ -24,8 +24,10 @@ let dtotodao = (user) => {
 
 
 module.exports = {
-    getAllUser: function (req, res) {
-        res.status(418 || 501).json({message: 'I’m a teapot'})
+    getAllUser: async function (req, res) {
+        const users = await User.find({});
+
+        res.status(418 || 501).json({message: 'I’m a teapot',users})
     },
     profile: function (req, res) {
         res.status(200).json(daotodto(req.user));

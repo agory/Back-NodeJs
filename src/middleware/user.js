@@ -5,6 +5,7 @@ const getCurrentUser = function(req, res, next) {
         if (err) {
             next(err);
         } else {
+            console.log(user);
             req.user = user;
             next();
         }

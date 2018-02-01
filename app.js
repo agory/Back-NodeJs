@@ -1,8 +1,10 @@
-let express = require('express');
-let app = express();
-let morgan = require('morgan');
-let bodyParser = require('body-parser');
-let mongoose = require('mongoose');
+const express = require('express');
+const app = express();
+const cors = require('cors');
+const morgan = require('morgan');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const passport = require('./src/middleware/passport');
 
 /**
  * Select config
@@ -16,7 +18,7 @@ if (env === "production"){
     config = require('./config.dev');
 }
 
-let port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 mongoose.Promise = Promise;
 mongoose.connect(config.database, {
     useMongoClient: true
@@ -26,15 +28,19 @@ mongoose.connect(config.database, {
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+passport();
 app.use(morgan('dev'));
 
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
+const corsOption = {
+    origin: true,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+    exposedHeaders: ['x-auth-token']
+};
+app.use(cors(corsOption));
 
-let route = require('./src/route/route');
+
+const route = require('./src/route/route');
 app.listen(port);
 console.log('RESTful API server started on: ' + port);
 
@@ -43,7 +49,7 @@ app.use('/', route);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-    let err = new Error('Not Found');
+    const err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
