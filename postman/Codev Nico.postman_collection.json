@@ -1,0 +1,226 @@
+{
+	"info": {
+		"name": "Codev Nico",
+		"_postman_id": "e91a8c4e-113a-ebdd-6bbb-0dd8dec9a605",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Signup",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"phave\",\n  \"email\": \"phave.virtuel@gmail.com\",\n  \"password\": \"alexandre\"\n}"
+				},
+				"url": {
+					"raw": "{{protocol}}://{{server-address}}:{{port}}/auth/signup",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{server-address}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"auth",
+						"signup"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Signin",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"phave.virtuel@gmail.com\",\n  \"password\": \"alexandre\"\n}"
+				},
+				"url": {
+					"raw": "{{protocol}}://{{server-address}}:{{port}}/auth/signin",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{server-address}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"auth",
+						"signin"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get All User",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "manga-drein-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhMGYxNjhlZDM2NGE5MDc2MDkzNzJiMCIsIm5hbWUiOiJwaGF2ZSIsImVtYWlsIjoicGhhdmUudmlydHVlbEBnbWFpbC5jb20iLCJpYXQiOjE1MTA5MzgyNjMsImV4cCI6MTU0MjQ3NDI2M30.F_TfjbOqCjF18AzFXaXnFGCG9CjICAo9PIGFDp4UjG4"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{protocol}}://{{server-address}}:{{port}}/users/",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{server-address}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"users",
+						""
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Profile",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "manga-drein-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhNjFiYzM5MmEzOWVmMGQzM2JjODQwZCIsIm5hbWUiOiJwaGF2ZSIsImVtYWlsIjoicGhhdmUudmlydHVlbEBnbWFpbC5jb20iLCJpYXQiOjE1MTYzNTQ2MTcsImV4cCI6MTU0Nzg5MDYxN30.ey-9SSwqtbN45mUoEexvGsGykwoZglQXtTFsYpEHnOQ"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{protocol}}://{{server-address}}:{{port}}/users/profile",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{server-address}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"users",
+						"profile"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Api root",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{protocol}}://{{server-address}}:{{port}}/",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{server-address}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						""
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "History",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "get manga",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "manga-drein-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhNjFiYzM5MmEzOWVmMGQzM2JjODQwZCIsIm5hbWUiOiJwaGF2ZSIsImVtYWlsIjoicGhhdmUudmlydHVlbEBnbWFpbC5jb20iLCJpYXQiOjE1MTYzNTQ2MTcsImV4cCI6MTU0Nzg5MDYxN30.ey-9SSwqtbN45mUoEexvGsGykwoZglQXtTFsYpEHnOQ"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{protocol}}://{{server-address}}:{{port}}/manga/9782756097626",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{server-address}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"manga",
+						"9782756097626"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "get chapter list",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "manga-drein-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhNzQzMjcwNTE3NzU2MzBkMDM3OTUyNCIsIm5hbWUiOiJUZXN0IEh1bWFuIiwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwiaWF0IjoxNTE3NTY2MzEwLCJleHAiOjE1NDkxMDIzMTB9.Hu3-BN00Nx_CiTB_lG1Ec4socwUa6KMCRhBYOPiVjM8"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{protocol}}://{{server-address}}:{{port}}/manga/chapters/9782344006597",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{server-address}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"manga",
+						"chapters",
+						"9782344006597"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "get scans",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
