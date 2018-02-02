@@ -47,6 +47,7 @@ let MangaController = {
         res.status(200);
         return res.json(books);
     },
+
     getMangaChaptersApiCall: async function (req, res) {
         let mangaIsbn = req.params.isbn;
         try {
@@ -126,7 +127,7 @@ let transformMangaListfromMangaEden = (mangaEdenApiBody) => {
     let resListe = [];
 
     liste.forEach(function(manga) {
-        resListe.add(
+        resListe.push(
             {
                 id: manga.i,
                 title_cleaned: manga.a,
@@ -140,14 +141,17 @@ let transformMangaListfromMangaEden = (mangaEdenApiBody) => {
 let getMangaedenIdFromList = (googleMangaName, mangaedenListe) => {
     // clean google manga's name - trim, lowercase, met des - à la place des espaces
     let googleMangaNameCleaned = googleMangaName.trim().toLowerCase().split(' ').join('-');
+    console.log(googleMangaNameCleaned);
+    // remove last word - 'one-piece-74' -> 'one-piece'
+    googleMangaNameCleaned = googleMangaNameCleaned.substring(0, googleMangaNameCleaned.lastIndexOf("-"));
+    console.log(googleMangaNameCleaned);
 
-    mangaedenListe.forEach(function(manga) {
+    for (let manga of mangaedenListe) {
         if (googleMangaNameCleaned === manga.title_cleaned) {
-            console.log('Found specific manga from MangaEden List ! ' + manga.title_cleaned);
+            console.log('Found specific manga from MangaEden List ! ' + manga.id);
             return manga.id;
         }
-    });
-
+    }
     return '-1';
 };
 

@@ -40,7 +40,7 @@ let apiCall = {
                 .send()
                 .end(response => {
                     if (response.ok) {
-                        console.log("Got a response: ", response.body);
+                      //DEBUG :  console.log("Got a response: ", response.body);
                         cache.set( "mangaeden-all-manga-list",response.body);
                         resolve(response.body);
                     } else {
