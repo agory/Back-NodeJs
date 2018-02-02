@@ -84,7 +84,18 @@ let MangaController = {
         }
     },
     getMangaScanListApiCall: async function (req, res) {
-        // TODO
+        let chapterId = req.params.chapterId;
+        try {
+            // get scans from Manga Eden- api call
+            const body = await mangaApi.getScansByChapterMangaeden(chapterId);
+
+            // response
+            res.status(200);
+            return res.json(transformChapterfromMangaEden(body));
+        } catch (err) {
+            res.status(404);
+            return res.json({err});
+        }
     }
 };
 
@@ -189,6 +200,20 @@ let transformMangafromMangaEden = (mangaEdenApiBody) => {
         isOnGoing: mangaEdenApiBody.status, // 1 = stil on going.
         chapters: chapters,
     }
+};
+
+let transformChapterfromMangaEden = (mangaEdenApiBody) => {
+    let imgs = mangaEdenApiBody.images;
+    let scans = [];
+
+    for (let img of imgs) {
+        scans.push({
+            index: img[0],
+            url: mangaedenImagesBaseUrl + img[1],
+        });
+    }
+
+    return scans.reverse();
 };
 
 module.exports = MangaController;

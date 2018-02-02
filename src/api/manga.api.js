@@ -70,6 +70,28 @@ let apiCall = {
                     }
                 });
         });
+    },
+    getScansByChapterMangaeden: function (chapterId) {
+        return new Promise(function (resolve, reject) {
+            const chapter = cache.get( "chapter-id-" + chapterId);
+            if(chapter) {
+                return resolve(chapter)
+            }
+
+            unirest.get(mangaedenBaseUrl + 'chapter/' + chapterId)
+                .send()
+                .end(response => {
+                    console.log('in');
+                    if (response.ok) {
+                        console.log("Got a response: ", response.body);
+                        cache.set( "chapter-id-" + chapterId,response.body);
+                        resolve(response.body);
+                    } else {
+                        console.log("Got an error: ", response.error);
+                        reject("No chapter with such id : " + chapterId + ". " + response.error);
+                    }
+                });
+        });
     }
 };
 
