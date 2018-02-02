@@ -2,8 +2,10 @@ const unirest = require('unirest');
 const NodeCache = require('node-cache');
 const TTL = 60*60*24*10; // 10 jours
 const cache = new NodeCache({ stdTTL: TTL, checkperiod: TTL + 20 });
+
 const googleUrl = 'https://www.googleapis.com/books/v1/volumes?q=isbn:';
 const mangaedenBaseUrl = 'https://www.mangaeden.com/api/';
+const mangaedenImagesBaseUrl = 'http://cdn.mangaeden.com/mangasimg/';
 
 let apiCall = {
     getMangaByIsbn: function (isbn) {
