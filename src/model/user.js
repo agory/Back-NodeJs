@@ -23,6 +23,8 @@ let UserSchema = new Schema({
         date: Date,
     }],
 
-});
+},
+    { usePushEach: true }
+);
 
 module.exports = mongoose.model('Users', UserSchema);

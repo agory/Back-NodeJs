@@ -2,12 +2,13 @@ let app = require('../../app');
 let mangaApi = require('../api/manga.api');
 let User = require('../model/user');
 
+const mangaedenImagesBaseUrl = 'http://cdn.mangaeden.com/mangasimg/';
 
 let MangaController = {
     getMangaByIsbnApiCall: async function(req, res, next) {
         let mangaIsbn = req.params.isbn;
         try {
-            const body = await mangaApi.getMangaByIsbn(mangaIsbn)
+            const body = await mangaApi.getMangaByIsbn(mangaIsbn);
             let user = req.user;
 
             user.history.push({
@@ -27,10 +28,8 @@ let MangaController = {
             res.status(404);
             return res.json({err});
         }
-
     },
     getMangaHistory: async function (req, res) {
-
         const books =  [];
         const isbnKnow = [];
         for(const item of req.user.history ){
@@ -47,7 +46,56 @@ let MangaController = {
         }
         res.status(200);
         return res.json(books);
+    },
 
+    getMangaChaptersApiCall: async function (req, res) {
+        let mangaIsbn = req.params.isbn;
+        try {
+            // get manga from Google -- api call
+            const bodyGoogle = await mangaApi.getMangaByIsbn(mangaIsbn);
+
+            // format response
+            const googleManga = transformMangaFromGoogleApi(bodyGoogle);
+
+            // check if mangaeden's manga id is already known - database call history (need to add id to schema)
+            // TODO : optimisation - speed up by reducing requests
+
+            // if not get manga list info - api call
+            const bodyAllList = await mangaApi.getAllMangaedenManga();
+
+            // transform and clear result
+            const mangaedenAllList = transformMangaListfromMangaEden(bodyAllList);
+
+            // compare manga.title to mangaedenAllList|].mangaTitle
+            const id = getMangaedenIdFromList(googleManga.title, mangaedenAllList);
+
+            // save found mangaeden id to database - database call
+            // TODO : optimisation
+
+            // get manga from mangaeden with id - api call
+            const mangaedenManga = await mangaApi.getMangaByIdMangaeden(id);
+
+            // response
+            res.status(200);
+            return res.json(transformMangafromMangaEden(mangaedenManga));
+        } catch (err) {
+            res.status(404);
+            return res.json({err});
+        }
+    },
+    getMangaScanListApiCall: async function (req, res) {
+        let chapterId = req.params.chapterId;
+        try {
+            // get scans from Manga Eden- api call
+            const body = await mangaApi.getScansByChapterMangaeden(chapterId);
+
+            // response
+            res.status(200);
+            return res.json(transformChapterfromMangaEden(body));
+        } catch (err) {
+            res.status(404);
+            return res.json({err});
+        }
     }
 };
 
@@ -82,6 +130,90 @@ let transformMangaFromGoogleApi = (googleApiBody) => {
             thumbnail: volumeInfo.imageLinks ? volumeInfo.imageLinks.thumbnail : "",
         },
     }
+};
+
+let transformMangaListfromMangaEden = (mangaEdenApiBody) => {
+    let liste = mangaEdenApiBody.manga;
+
+    let resListe = [];
+
+    liste.forEach(function(manga) {
+        resListe.push(
+            {
+                id: manga.i,
+                title_cleaned: manga.a,
+            }
+        )
+    });
+
+    return resListe;
+};
+
+let getMangaedenIdFromList = (googleMangaName, mangaedenListe) => {
+    // clean google manga's name - trim, lowercase, met des - à la place des espaces
+    let googleMangaNameCleaned = googleMangaName.trim().toLowerCase().split(' ').join('-');
+    console.log(googleMangaNameCleaned);
+    // remove last word - 'one-piece-74' -> 'one-piece'
+    googleMangaNameCleaned = googleMangaNameCleaned.substring(0, googleMangaNameCleaned.lastIndexOf("-"));
+    console.log(googleMangaNameCleaned);
+
+    for (let manga of mangaedenListe) {
+        if (googleMangaNameCleaned === manga.title_cleaned) {
+            console.log('Found specific manga from MangaEden List ! ' + manga.id);
+            return manga.id;
+        }
+    }
+    return '-1';
+};
+
+let transformMangafromMangaEden = (mangaEdenApiBody) => {
+    let chapters = [];
+
+    // JSON example
+    /* "chapters": [
+            [
+              32, // chapter number
+              1516615653.0, // timestamp of released date
+              "Dragon Ball Super 32:", // name
+              "5a65b7e5719a1643241a5e1f" // id
+            ],
+            .
+            .
+            .
+         ] */
+
+    mangaEdenApiBody.chapters.forEach(function (chapter) {
+        chapters.push({
+            num: chapter[0],
+            releasedDate: chapter[1],
+            name: chapter[2],
+            id: chapter[3],
+        });
+    });
+
+    return {
+        title: mangaEdenApiBody.aka[0],
+        author: mangaEdenApiBody.author,
+        categories: mangaEdenApiBody.categories, // Array of names
+        description: mangaEdenApiBody.description,
+        imageLink: mangaedenImagesBaseUrl + mangaEdenApiBody.image,
+        isOnGoing: mangaEdenApiBody.status, // 1 = stil on going.
+        chapters: chapters,
+    }
+};
+
+let transformChapterfromMangaEden = (mangaEdenApiBody) => {
+    let imgs = mangaEdenApiBody.images;
+    let scans = [];
+
+    for (let img of imgs) {
+        scans.push({
+            index: img[0],
+            url: mangaedenImagesBaseUrl + img[1],
+        });
+    }
+
+    return scans.reverse();
 };
 
 module.exports = MangaController;

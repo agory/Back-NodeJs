@@ -9,6 +9,8 @@ router.use(function timeLog(req, res, next) {
 
 //to test: (one piece T1) 978-2-7234-8852-5
 router.get('/:isbn', mangaController.getMangaByIsbnApiCall);
+router.get('/chapters/:isbn', mangaController.getMangaChaptersApiCall);
+router.get('/chapter/scans/:chapterId', mangaController.getMangaScanListApiCall);
 
 
 module.exports = router;
