@@ -137,14 +137,14 @@ let transformMangaListfromMangaEden = (mangaEdenApiBody) => {
 
     let resListe = [];
 
-    liste.forEach(function(manga) {
+    for (let manga of liste) {
         resListe.push(
             {
                 id: manga.i,
                 title_cleaned: manga.a,
             }
         )
-    });
+    }
 
     return resListe;
 };
@@ -197,7 +197,7 @@ let transformMangafromMangaEden = (mangaEdenApiBody) => {
         categories: mangaEdenApiBody.categories, // Array of names
         description: mangaEdenApiBody.description,
         imageLink: mangaedenImagesBaseUrl + mangaEdenApiBody.image,
-        isOnGoing: mangaEdenApiBody.status, // 1 = stil on going.
+        isOnGoing: mangaEdenApiBody.status == 1, // 1 = stil on going.
         chapters: chapters,
     }
 };
