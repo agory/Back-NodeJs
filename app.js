@@ -48,16 +48,21 @@ app.use('/', route);
 
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use( (req, res, next) => {
     const err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
 
 // error handler
-app.use(function (err, req, res) {
+app.use((err, req, res,next) =>  {
     res.status(err.status || 500);
-    res.json(req.app.get('env') === 'development' ? err : err.message);
+    res.json({error:app.get('env') === 'production' ? err.message: {
+            message:err.message,
+            status:err.status,
+            stack:err.stack.split('\n'),
+            code:err.code
+        }});
 });
 
 module.exports = app;
