@@ -12,7 +12,7 @@ const passport = require('./src/middleware/passport');
 let config;
 const env = app.get('env').trim();
 console.log("Mode : " + env);
-if (env === "production"){
+if (env === "production") {
     config = require('./config.prod');
 } else {
     config = require('./config.dev');
@@ -48,21 +48,24 @@ app.use('/', route);
 
 
 // catch 404 and forward to error handler
-app.use( (req, res, next) => {
+app.use((req, res, next) => {
     const err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
 
 // error handler
-app.use((err, req, res,next) =>  {
+app.use((err, req, res, next) => {
     res.status(err.status || 500);
-    res.json({error:app.get('env') === 'production' ? err.message: {
-            message:err.message,
-            status:err.status,
-            stack:err.stack.split('\n'),
-            code:err.code
-        }});
+    res.json({
+        success: false,
+        error: app.get('env') === 'production' ? err.message : {
+            message: err.message,
+            status: err.status,
+            stack: err.stack.split('\n'),
+            code: err.code,
+        }
+    });
 });
 
 module.exports = app;

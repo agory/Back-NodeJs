@@ -20,9 +20,9 @@ router.post('/facebook',
     sendToken,
     console,
     (error, req, res, next) => {
-        if(error) {
-            res.status(400).json({success: false, message: 'Auth failed', error})
-        }
+        const error2 = new Error('Auth failed');
+        error2.status = 400;
+        next(error2);
 });
 
 
