@@ -20,7 +20,7 @@ const test = (req, res, next) => {
 };
 
 router.use('/auth', auth);
-router.use('/', test, authenticate, test, getCurrentUser, (error, req, res, next) => {
+router.use('/', authenticate, getCurrentUser, (error, req, res, next) => {
         if (error) {
             res.status(401).json({success: false, message: 'Auth failed', error})
         }
