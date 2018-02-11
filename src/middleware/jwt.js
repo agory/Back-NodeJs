@@ -12,7 +12,7 @@ const createToken = function(auth) {
 
 const parseToken = (token) => {
     const parts = token.split(' ');
-    return parts[parts.length - 1]
+    return parts[parts.length - 1];
 };
 
 const generateToken = function (req, res, next) {
@@ -30,8 +30,7 @@ const authenticate = expressJwt({
     requestProperty: 'auth',
     getToken: function(req) {
         if (req.headers['x-auth-token']) {
-            const token =parseToken(req.headers['x-auth-token']);
-            return token;
+            return parseToken(req.headers['x-auth-token']);
         }
         return null;
     }

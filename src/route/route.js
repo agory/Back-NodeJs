@@ -13,19 +13,16 @@ router.get('/', (req, res) => res.json({
     startedAt: startedDate,
     message: 'Welcome to manga drein API'
 }));
-
+let index = 0;
 const test = (req, res, next) => {
-    console.log(req.headers);
+    console.log("test",index);
+    index++;
     next()
 };
-
+router.use(test);
 router.use('/auth', auth);
-router.use('/', authenticate, getCurrentUser, (error, req, res, next) => {
-        const error2 = new Error('No token provided');
-        error2.status = 401;
-        next(error2);
-    }
-);
+router.use(test);
+router.use('/', authenticate, getCurrentUser);
 router.use('/users', user);
 router.use('/manga', manga);
 
