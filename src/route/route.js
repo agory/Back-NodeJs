@@ -13,15 +13,7 @@ router.get('/', (req, res) => res.json({
     startedAt: startedDate,
     message: 'Welcome to manga drein API'
 }));
-let index = 0;
-const test = (req, res, next) => {
-    console.log("test",index);
-    index++;
-    next()
-};
-router.use(test);
 router.use('/auth', auth);
-router.use(test);
 router.use('/', authenticate, getCurrentUser);
 router.use('/users', user);
 router.use('/manga', manga);

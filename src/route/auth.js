@@ -8,7 +8,8 @@ router.post('/facebook',
     passport.authenticate('facebook-token', {session: false}),
     authController.authentificationSuccess,
     generateToken,
-    sendToken);
+    sendToken,
+);
 
 
 
