@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 host="codev.polytech-info.fr"
 user="root"

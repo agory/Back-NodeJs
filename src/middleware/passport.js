@@ -6,7 +6,7 @@ const passport = require('passport'),
 module.exports = function () {
     passport.use(new FacebookTokenStrategy({
             clientID: '139920246702072',
-            clientSecret: 'c8f8c36c2ddf683dcb19fa2ee2ea5c62',
+            clientSecret: '',
             profileFields: ['id', 'email', 'displayName', 'photos']
         },
         function (accessToken, refreshToken, profile, done) {
