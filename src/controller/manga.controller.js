@@ -45,7 +45,7 @@ let MangaController = {
 
         }
         res.status(200);
-        return res.json(books);
+        return res.json(books.sort((book1,book2) => new Date(book2.date) - new Date(book1.date)));
     },
 
     getMangaChaptersApiCall: async function (req, res) {

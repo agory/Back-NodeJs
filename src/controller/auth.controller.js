@@ -4,7 +4,7 @@ module.exports = {
         if (!req.user) {
             return res.send(401, 'User Not Authenticated');
         }
-        console.log(req.user);
+        //console.log(req.user);
 
         // prepare token for API
         req.auth = {
