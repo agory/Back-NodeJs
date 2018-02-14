@@ -19,7 +19,6 @@ let apiCall = {
                 .send()
                 .end(response => {
                     if (response.ok && response.body.totalItems) {
-                        console.log("Got a response: ", response.body);
                         cache.set( "book-isbn-" + isbn,response.body);
                         resolve(response.body);
                     } else {
@@ -61,7 +60,6 @@ let apiCall = {
                 .send()
                 .end(response => {
                     if (response.ok) {
-                        console.log("Got a response: ", response.body);
                         cache.set( "book-id-" + id,response.body);
                         resolve(response.body);
                     } else {
@@ -83,7 +81,6 @@ let apiCall = {
                 .end(response => {
                     console.log('in');
                     if (response.ok) {
-                        console.log("Got a response: ", response.body);
                         cache.set( "chapter-id-" + chapterId,response.body);
                         resolve(response.body);
                     } else {
