@@ -155,10 +155,8 @@ let transformMangaListfromMangaEden = (mangaEdenApiBody) => {
 let getMangaedenIdFromList = (googleMangaName, mangaedenListe) => {
     // clean google manga's name - trim, lowercase, met des - à la place des espaces
     let googleMangaNameCleaned = googleMangaName.trim().toLowerCase().split(' ').join('-');
-    console.log(googleMangaNameCleaned);
     // remove last word - 'one-piece-74' -> 'one-piece'
     googleMangaNameCleaned = googleMangaNameCleaned.substring(0, googleMangaNameCleaned.lastIndexOf("-"));
-    console.log(googleMangaNameCleaned);
 
     for (let manga of mangaedenListe) {
         if (googleMangaNameCleaned === manga.title_cleaned) {
