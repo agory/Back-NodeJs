@@ -36,8 +36,12 @@ let MangaController = {
             if(!isbnKnow.includes(item.isbn)) {
                 try {
                     const body = await mangaApi.getMangaByIsbn(item.isbn);
-                    books.push({date:item.date , book : transformMangaFromGoogleApi(body)});
+                    const book = transformMangaFromGoogleApi(body);
+                    books.push({date:item.date , book });
                     isbnKnow.push(item.isbn);
+                    if(!isbnKnow.includes(book.isbn)) {
+                        isbnKnow.push(book.isbn)
+                    }
                 } catch (err) {
                     console.log(err);
                 }
