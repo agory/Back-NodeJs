@@ -11,6 +11,13 @@ router.post('/facebook',
     sendToken,
 );
 
+router.post('/login',
+    passport.authenticate('facebook-token', {session: false}),
+    authController.authentificationSuccess,
+    generateToken,
+    sendToken,
+);
+
 
 
 module.exports = router;

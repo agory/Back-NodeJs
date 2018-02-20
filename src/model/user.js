@@ -2,36 +2,42 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 let UserSchema = new Schema({
-    email: {
-        type: String, required: true,
-        trim: true, unique: true,
-        match: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-    },
-    name: {
-        type: String, required: true,
-        trim: true,
-    },
-    facebookProvider: {
-        type: {
-            id: String,
-            token: String
+        email: {
+            type: String, required: true,
+            trim: true, unique: true,
+            match: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
         },
-        select: false
-    },
-    history: [{
-        isbn: {
-            type: String,
-            required: true
+        name: {
+            type: String, required: true,
+            trim: true,
         },
-        date: Date,
-    }],
+        facebookProvider: {
+            type: {
+                id: String,
+                token: String
+            },
+            select: false
+        },
+        loginProvider: {
+            password: {
+                type: String,
+                required: true
+            }
+        },
+        history: [{
+            isbn: {
+                type: String,
+                required: true
+            },
+            date: Date,
+        }],
 
-},
-    { usePushEach: true }
+    },
+    {usePushEach: true}
 );
 
 
-UserSchema.statics.upsertFbUser = function(accessToken, refreshToken, profile, cb) {
+UserSchema.statics.upsertFbUser = function (accessToken, refreshToken, profile, cb) {
     return this.findOne({
         'facebookProvider.id': profile.id
     }, (err, user) => {
@@ -46,7 +52,7 @@ UserSchema.statics.upsertFbUser = function(accessToken, refreshToken, profile, c
                 }
             });
 
-            newUser.save(function(error, savedUser) {
+            newUser.save(function (error, savedUser) {
                 if (error) {
                     console.log(error);
                 }
